@@ -1,19 +1,19 @@
 databases:
-  - name: postgres
+  - name: budget
     ipAllowList: []
-    databaseName: budget_production
-    user: budget
+    databaseName: budget_11tg
+    user: budget_11tg_user
 
 services:
   - type: web
     name: budget
     env: ruby
-    buildCommand: "./budget-build.sh"
-    startCommand: "bundle exec rails s"
+    buildCommand: "./bin/budget-build.sh"
+    startCommand: "bundle exec puma -C config/puma.rb"
     envVars:
       - key: DATABASE_URL
         fromDatabase:
-          name: postgres
+          name: budget_11tg
           property: connectionString
       - key: RAILS_MASTER_KEY
         sync: false
