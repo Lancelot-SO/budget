@@ -1,82 +1,118 @@
 require 'rails_helper'
 
-RSpec.describe 'Users', type: :request do
+RSpec.describe 'Users', type: :feature do
   before(:each) do
     @user = User.create(name: 'Test user', email: 'test444@gmail.com', password: '123456',
-                        password_confirmation: '123456', confirmation_token: nil, confirmed_at: Time.now)
-    @group = Group.create(name: 'Test group', icon: 'http://example.com', author_id: @user.id)
-    @expense = Expense.create(name: 'Test expense', amount: 100, author_id: @user.id)
-    @expense_group = ExpenseGroup.create(expense_id: @expense.id, group_id: @group.id)
+                        password_confirmation: '123456',
+                        confirmation_token: nil, confirmed_at: Time.now)
   end
-  describe 'GET /splash' do
-    it 'returns http success' do
-      get splash_path
-      expect(response).to have_http_status(200)
+  describe 'sign in page' do
+    scenario 'should have a sign in page' do
+      visit new_user_session_path
+      expect(page).to have_content('Log in')
     end
-    it 'renders the index template' do
-      get splash_path
-      expect(response).to render_template('index').or(render_template('/'))
+    scenario 'should have a sign in button' do
+      visit new_user_session_path
+      expect(page).to have_content('Log in')
     end
-    it 'displays sign in' do
-      get splash_path
-      expect(response.body).to include('Sign In')
+    scenario 'should have a sign up link' do
+      visit new_user_session_path
+      expect(page).to have_link('Sign up')
     end
-  end
-
-  describe 'GET /sign_in' do
-    it 'returns http success' do
-      get new_user_session_path
-      expect(response).to have_http_status(200)
+    scenario 'should have a forgot password link' do
+      visit new_user_session_path
+      expect(page).to have_link('Forgot your password?')
     end
-    it 'renders the new template' do
-      get new_user_session_path
-      expect(response).to render_template('new').or(render_template('devise/sessions/new'))
+    scenario 'should have dint receive confirmation instructions link' do
+      visit new_user_session_path
+      expect(page).to have_link("Didn't receive confirmation instructions?")
     end
-    it 'displays the sign in form' do
-      get new_user_session_path
-      expect(response.body).to include('Log in')
+    scenario 'when user signs in with valid credential it will redirect to group page' do
+      visit new_user_session_path
+      fill_in 'Email', with: @user.email
+      fill_in 'Password', with: @user.password
+      click_button 'LOG IN'
+      expect(page).to have_content('Signed in successfully')
     end
-  end
-  describe 'GET /sign_up' do
-    it 'returns http success' do
-      get new_user_registration_path
-      expect(response).to have_http_status(200)
+    scenario 'when user signs in with invalid credential it will redirect to sign in page' do
+      visit new_user_session_path
+      fill_in 'Email', with: @user.email
+      fill_in 'Password', with: ''
+      click_button 'LOG IN'
+      expect(page).to have_content('Log in')
     end
-    it 'renders the new template' do
-      get new_user_registration_path
-      expect(response).to render_template('new').or(render_template('devise/registrations/new'))
+    scenario 'when user clicks on sign up link it will redirect to sign up page' do
+      visit new_user_session_path
+      click_link 'Sign up'
+      expect(page).to have_content("Didn't receive confirmation instructions?")
     end
-    it 'displays the sign up form' do
-      get new_user_registration_path
-      expect(response.body).to include('Sign up')
+    scenario 'when user clicks on forgot password link it will redirect to forgot password page' do
+      visit new_user_session_path
+      click_link 'Forgot your password?'
+      expect(page).to have_content("Didn't receive confirmation instructions?")
     end
-  end
-  describe 'GET /users/confirmation/new' do
-    it 'returns http success' do
-      get new_user_confirmation_path
-      expect(response).to have_http_status(200)
-    end
-    it 'renders the new template' do
-      get new_user_confirmation_path
-      expect(response).to render_template('new').or(render_template('devise/confirmations/new'))
-    end
-    it 'displays the confirmation form' do
-      get new_user_confirmation_path
-      expect(response.body).to include('Resend confirmation instructions')
+    scenario 'when user clicks on dint receive confirmation instructions link it
+     will redirect to confirmation instructions page' do
+      visit new_user_session_path
+      click_link "Didn't receive confirmation instructions?"
+      expect(page).to have_content('Forgot your password?')
     end
   end
-  describe 'GET /users/password/new' do
-    it 'returns http success' do
-      get new_user_password_path
-      expect(response).to have_http_status(200)
+  describe 'sign up page' do
+    scenario 'should have a sign up page' do
+      visit new_user_registration_path
+      expect(page).to have_content('Log in')
     end
-    it 'renders the new template' do
-      get new_user_password_path
-      expect(response).to render_template('new').or(render_template('devise/passwords/new'))
+    scenario 'should have a sign up button' do
+      visit new_user_registration_path
+      expect(page).to have_button('Sign up')
     end
-    it 'displays the password form' do
-      get new_user_password_path
-      expect(response.body).to include('Send me reset password instructions')
+    scenario 'should have a sign in link' do
+      visit new_user_registration_path
+      expect(page).to have_content("Didn't receive confirmation instructions?")
+    end
+    scenario 'when user signs up with valid credential it will redirect to login page' do
+      visit new_user_registration_path
+      fill_in 'Name', with: @user.name
+      fill_in 'Email', with: @user.email
+      fill_in 'user[password]', with: @user.password
+      fill_in 'Confirm password', with: @user.password_confirmation
+      click_button 'Sign up'
+      expect(page).to have_content("Didn't receive confirmation instructions?")
+    end
+  end
+  describe 'forgot password page' do
+    it 'should have a forgot password page' do
+      visit new_user_password_path
+      expect(page).to have_content('Log in')
+    end
+    it 'should have a forgot password form' do
+      visit new_user_password_path
+      expect(page).to have_content("Sign up Didn't receive confirmation instructions?")
+    end
+    it 'should have a send me reset password instructions button' do
+      visit new_user_password_path
+      expect(page).to have_button('Send me reset password instructions')
+    end
+  end
+  describe 'confirmation instructions page' do
+    it 'should have a confirmation instructions page' do
+      visit new_user_confirmation_path
+      expect(page).to have_content('Sign up Forgot your password?')
+    end
+    it 'should have a confirmation instructions form' do
+      visit new_user_confirmation_path
+      expect(page).to have_content('Sign up Forgot your password?')
+    end
+    it 'should have a resend confirmation instructions button' do
+      visit new_user_confirmation_path
+      expect(page).to have_button('Resend confirmation instructions')
+    end
+    it 'when user clicks on resend confirmation instructions button it will redirect to login page' do
+      visit new_user_confirmation_path
+      fill_in 'Email', with: @user.email
+      click_button 'Resend confirmation instructions'
+      expect(page).to have_content('Log in')
     end
   end
 end
