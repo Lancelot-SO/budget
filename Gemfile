@@ -7,6 +7,7 @@ ruby '3.2.2'
 gem 'rails', '~> 7.0.4', '>= 7.0.4.3'
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
+gem 'bullet'
 gem 'cancancan'
 gem 'cloudinary'
 gem 'devise'
@@ -73,6 +74,8 @@ end
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem 'capybara'
+  gem 'rails-controller-testing'
+  gem 'rspec-rails'
   gem 'selenium-webdriver'
   gem 'webdrivers'
 end
