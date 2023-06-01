@@ -7,6 +7,10 @@ ruby '3.2.2'
 gem 'rails', '~> 7.0.4', '>= 7.0.4.3'
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
+gem 'cloudinary'
+gem 'devise'
+gem 'dotenv-rails', groups: %i[development test]
+gem 'ffi', '~> 1.15.0'
 gem 'rubocop', '>= 1.0', '< 2.0'
 gem 'sprockets-rails'
 
