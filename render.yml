@@ -1,7 +1,7 @@
 databases:
   - name: postgres
     ipAllowList: []
-    databaseName: budget_production_7kip
+    databaseName: budget_production
     user: budget
 
 services:
