@@ -7,6 +7,7 @@ ruby '3.2.2'
 gem 'rails', '~> 7.0.4', '>= 7.0.4.3'
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
+gem 'bullet'
 gem 'cancancan'
 gem 'cloudinary'
 gem 'devise'
@@ -14,6 +15,7 @@ gem 'dotenv-rails', groups: %i[development test]
 gem 'ffi', '~> 1.15.0'
 gem 'rubocop', '>= 1.0', '< 2.0'
 gem 'sprockets-rails'
+
 
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 1.1'
@@ -73,6 +75,8 @@ end
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem 'capybara'
+  gem 'rails-controller-testing'
+  gem 'rspec-rails'
   gem 'selenium-webdriver'
   gem 'webdrivers'
 end
