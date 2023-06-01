@@ -2,7 +2,7 @@ class GroupsController < ApplicationController
   before_action :authenticate_user!, except: [:splash]
   # load_and_authorize_resource except: [:splash]
   def index
-    @groups = current_user.groups.order(created_at: :desc)
+    @groups = current_user.groups.order(created_at: :desc).includes(:expenses)
   end
 
   def new
