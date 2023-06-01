@@ -1,5 +1,5 @@
 class ExpensesController < ApplicationController
-  load_and_authorize_resource except: :create
+  load_and_authorize_resource
   def index
     @group = Group.find(params[:group_id])
     @expenses = @group.expenses.order(created_at: :desc)
@@ -11,8 +11,7 @@ class ExpensesController < ApplicationController
   end
 
   def create
-    @expense = current_user.expenses.new(name: expense_params[:name], amount: expense_params[:amount])
-
+    @expense = current_user.expenses.new(expense_params.slice(:name, :amount))
     if @expense.save
       @expense_group = ExpenseGroup.new(expense_id: @expense.id, group_id: params[:expense][:group_id])
 
