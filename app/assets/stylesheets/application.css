@@ -126,7 +126,7 @@ input[type="password"]::placeholder {
   margin-left: 120px;
   max-width: 60%;
   flex-wrap: wrap;
-  color: #607d8b;
+  color: #8b8a60;
 }
 
 .group_holder {
@@ -166,6 +166,10 @@ input[type="password"]::placeholder {
   color: #989da3;
 }
 
+.group_name:hover {
+  color: #1f2020;
+}
+
 .group_amount {
   padding-right: 5px;
 }
@@ -187,6 +191,10 @@ hr {
 .group_date_created {
   text-align: left;
   color: #989da3;
+}
+
+.group_date_created:hover {
+  color: #1f2020;
 }
 
 .button_holder {
