@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ExpenseGroupTest < ActiveSupport::TestCase
+class ExpensesControllerTest < ActionDispatch::IntegrationTest
   # test "the truth" do
   #   assert true
   # end
