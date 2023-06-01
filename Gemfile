@@ -16,7 +16,6 @@ gem 'ffi', '~> 1.15.0'
 gem 'rubocop', '>= 1.0', '< 2.0'
 gem 'sprockets-rails'
 
-
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 1.1'
 
