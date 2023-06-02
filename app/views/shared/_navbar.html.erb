@@ -26,15 +26,7 @@
     <h5>RESET PASSWORD</h5>
     <p>Reset</p>
   <% end %>
-  <%if current_page?(new_user_confirmation_path)|| request&.path&.include?('/users/confirmation')%>
-    <div ><%= link_to(:back) do %>
-        <%= content_tag(:div) do %>
-          <i class="material-icons white-text">arrow_back</i>
-        <% end %>
-      <% end %></div>
-    <h5>RESEND EMAIL CONFIRM</h5>
-    <p>Confirm</p>
-  <% end %>
+
   <% if current_page?(authenticated_root_path) && !current_user.nil?  %>
     <div>
       <i class="material-icons white-text">menu</i>
