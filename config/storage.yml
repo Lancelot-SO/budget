@@ -1,0 +1,50 @@
+cloudinary:
+  service : Cloudinary
+  config.cloud_name : 'dcy9ohov3'
+  config.api_key : '814897746143212'
+  config.api_secret : 'f96OaN6NgTJCNijt8T4RgiVR4k4'
+  config.secure : true # Set this to false
+# Use bin/rails credentials:edit to set the AWS secrets (as aws:access_key_id|secret_access_key)
+# amazon:
+#   service: S3
+#   access_key_id: <%= Rails.application.credentials.dig(:aws, :access_key_id) %>
+#   secret_access_key: <%= Rails.application.credentials.dig(:aws, :secret_access_key) %>
+#   region: us-east-1
+#   bucket: your_own_bucket-<%= Rails.env %>
+
+# Remember not to checkin your GCS keyfile to a repository
+# google:
+#   service: GCS
+#   project: your_project
+#   credentials: <%= Rails.root.join("path/to/gcs.keyfile") %>
+#   bucket: your_own_bucket-<%= Rails.env %>
+
+# Use bin/rails credentials:edit to set the Azure Storage secret (as azure_storage:storage_access_key)
+# microsoft:
+#   service: AzureStorage
+#   storage_account_name: your_account_name
+#   storage_access_key: <%= Rails.application.credentials.dig(:azure_storage, :storage_access_key) %>
+#   container: your_container_name-<%= Rails.env %>
+
+# mirror:
+#   service: Mirror
+#   primary: local
+#   mirrors: [ amazon, google, microsoft ]
+
+production:
+  service: Cloudinary
+  enhance_image_tag: true
+  static_image_support: true
+  # Additional Cloudinary configuration options can be added here
+
+development:
+  service: Cloudinary
+  enhance_image_tag: true
+  static_image_support: true
+  # Additional Cloudinary configuration options can be added here
+
+test:
+  service: Cloudinary
+  enhance_image_tag: true
+  static_image_support: true
+  # Additional Cloudinary configuration options can be added here
